@@ -1,5 +1,9 @@
 def creer_joueur(nom):
-    return {"nom": nom, "coeffre": 0, "sac": 0, "actif": True}
+    """
+    permet de créer un dico pour chaque joueur
+    actif : 1 -> il est dans la grote, O -> il est en train de rentree, -1 -> il est a la base
+    """
+    return {"nom": nom, "coffre": 0, "sac": 0, "actif": 1}
 
 def generer_deck(exclutions):
     """
