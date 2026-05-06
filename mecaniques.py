@@ -1,50 +1,54 @@
 def partage_tresor(montant, joueurs):
     """
-    Partage les trésore si les joueur son encore actife
-    renvoi se qui doit rester au sol
+    Partage un trésor équitablement entre les joueurs encore actifs.
+    Renvoie le reste (gemmes indivisibles) qui reste sur le chemin.
     """
-    joueur_actif = 0
-    for j in joueurs:
-        if j["actif"] == 1:
-            joueur_actif += 1
-    partage = montant // joueur_actif
-    reste = montant % joueur_actif
-    for j in joueurs:
-        if j["actif"] == 1:
-            j["sac"] += partage
+    joueurs_actifs = [j for j in joueurs if j["actif"] == True]
+
+    partage = montant // len(joueurs_actifs)
+    reste = montant % len(joueurs_actifs)
+
+    for j in joueurs_actifs:
+       j["sac"] += partage
+
     return reste
 
-def est_mortel(carte_piochee, cartes_sorties):
+def est_mortel(carte_piochee, cartes_manche_en_cours):
     """
-    Renvoi vrai si une carte fais perdre la manche
+    Renvoie True si la carte est un danger ET qu'elle est déjà apparue
+    dans la manche (doublée → tout le monde perd).
     """
-    if carte_piochee in cartes_sorties:
-        return True
-    return False
+    if not isinstance(carte_piochee, str):
+        return False
+    return carte_piochee in cartes_manche_en_cours
 
 def tresor_retour(montant, joueurs):
     """
-    Partage les trésore si les joueur deside de retourner au camp
-    renvoi se qui doit rester au sol
+    Partage le trésor au sol entre les joueurs qui ont décidé de rentrer
+    au camp ce tour (actif == False).
+    Renvoie le reste qui reste sur le chemin.
     """
-    joueur_sortant = 0
-    for j in joueurs:
-        if j["actif"] == 0:
-            joueur_sortant += 1
-    partage = montant // joueur_sortant
-    reste = montant % joueur_sortant
-    for j in joueurs:
-        if j["actif"] == 0:
-            j["sac"] += partage
+    joueurs_sortants = [j for j in joueurs if not j["actif"] == False]
+    if not joueurs_sortants:
+        return montant  
+ 
+    partage = montant // len(joueurs_sortants)
+    reste   = montant % len(joueurs_sortants)
+ 
+    for j in joueurs_sortants:
+        j["sac"] += partage
+ 
     return reste
 
-def rentree_au_camp(joueur):
+def rentree_au_camp(joueurs):
     """
-    mets les tresor du sac dans le coffre
+    Pour chaque joueur qui rentre (actif == False) :
+      - transfère le contenu du sac dans le coffre
+      - vide le sac
+      - remet actif à True pour la prochaine manche
     """
-    for j in joueur:
-        tresor = j["sac"]
-        j["coeffre"] += tresor
-        j["sac"] = 0
-        j["actif"] = 1
-
+    for j in joueurs:
+        if j["actif"] == False:
+            j["coffre"] += j["sac"]
+            j["sac"]    = 0
+            j["actif"] = "sorti"
