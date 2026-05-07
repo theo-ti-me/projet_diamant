@@ -4,6 +4,8 @@ def partage_tresor(montant, joueurs):
     Renvoie le reste (gemmes indivisibles) qui reste sur le chemin.
     """
     joueurs_actifs = [j for j in joueurs if j["actif"] == True]
+    if not joueurs_actifs:
+        return montant
 
     partage = montant // len(joueurs_actifs)
     reste = montant % len(joueurs_actifs)
@@ -30,7 +32,7 @@ def tresor_retour(montant, joueurs):
     """
     joueurs_sortants = [j for j in joueurs if not j["actif"] == False]
     if not joueurs_sortants:
-        return montant  
+        return montant
  
     partage = montant // len(joueurs_sortants)
     reste   = montant % len(joueurs_sortants)
