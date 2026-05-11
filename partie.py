@@ -31,10 +31,11 @@ def jouer_partie(joueurs):
             print(f"\n{j['nom']} : {j['coffre']}")
         id_manche += 1
     
-    maxi = joueurs[0]
-    for j in joueurs:
-        if j["coffre"] > maxi["coffre"]:
-            maxi = j
+    classement = sorted(joueurs, key=lambda j: j["coffre"], reverse=True)
 
-    print(f"\nFin de la dernière manche. La personne qui a le plus de trésore est {maxi['nom']} avec {maxi['coffre']} tresores")
+    print("\nFin de la dernière manche. Voici le classement")
+    ordre = 1
+    for j in classement:
+        print(f"\n{ordre} : {j['nom']} ({j['coffre']})")
+        ordre += 1
 
