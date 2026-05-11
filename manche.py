@@ -30,7 +30,7 @@ def jouer_manche(joueurs, exclusions, numero_manche):
                 if choix == "rentrer":
                     j["actif"] = False
     
-        # partage du trésor au sole pour ce qui rentre a ce toure 
+        # partage du trésor au sol pour ce qui rentre a ce tour
         tresor_sol = tresor_retour(tresor_sol, joueurs)
         rentree_au_camp(joueurs)
 
@@ -39,7 +39,7 @@ def jouer_manche(joueurs, exclusions, numero_manche):
             print("Tous les joueurs sont rentrés au camp !")
             break
 
-        # piocher la cartee
+        # piocher la carte
         print(f"\nCarte piochée : {c}")
 
         # si c'est une carte danger piocher 2 fois alors fin de la manche
@@ -58,6 +58,6 @@ def jouer_manche(joueurs, exclusions, numero_manche):
         # partage des tresor pour les personne encore actif si une carte tresor est piocher
         if isinstance(c, int):
             tresor_sol += partage_tresor(c, joueurs)
-            print(f"Trésor ! Chacun resoit sa part. Le rest au sol : {tresor_sol}")
+            print(f"Trésor ! Chacun reçoit sa part. Le reste au sol : {tresor_sol}")
         
     return exclusions
