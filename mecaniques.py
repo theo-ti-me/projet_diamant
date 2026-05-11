@@ -30,7 +30,7 @@ def tresor_retour(montant, joueurs):
     au camp ce tour (actif == False).
     Renvoie le reste qui reste sur le chemin.
     """
-    joueurs_sortants = [j for j in joueurs if not j["actif"] == False]
+    joueurs_sortants = [j for j in joueurs if j["actif"] == False]
     if not joueurs_sortants:
         return montant
  
