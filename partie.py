@@ -1,7 +1,7 @@
 from donnees import creer_joueur
 from manche import jouer_manche
 
-def creer_joueurs():
+def init_joueurs():
     """
     Initialise la liste des joueurs
     """
