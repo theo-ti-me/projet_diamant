@@ -26,7 +26,7 @@ def jouer_manche(joueurs, exclusions, numero_manche):
         # décision des joueur actifs
         for j in joueurs:
             if j["actif"] == True:
-                choix = input(f"{j['nom']} (sac = {j['sac']}) : continuer ou rentrer ?").strip().lower()
+                choix = input(f"{j['nom']} (sac = {j['sac']}) : continuer ou rentrer ? ").strip().lower()
                 if choix == "rentrer":
                     j["actif"] = False
     
