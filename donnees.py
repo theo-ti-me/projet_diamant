@@ -2,7 +2,7 @@ def creer_joueur(nom):
     """
     permet de créer un dico pour chaque joueur
     """
-    return {"nom": nom, "coffre": 0, "sac": 0, "actif": True}
+    return {"nom": nom, "coffre": 0, "sac": 0, "reliques": [], "actif": True}
 
 def generer_deck(exclusions):
     """
@@ -17,3 +17,6 @@ def generer_deck(exclusions):
         for i in range(nb_exemplaires):
             deck.append(d)
     return deck
+
+def creer_pile_reliques():
+    return[5, 7, 8, 10, 12]

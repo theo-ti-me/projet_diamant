@@ -24,13 +24,12 @@ def est_mortel(carte_piochee, cartes_manche_en_cours):
         return False
     return carte_piochee in cartes_manche_en_cours
 
-def tresor_retour(montant, joueurs):
+def tresor_retour(montant, joueurs_sortants):
     """
     Partage le trésor au sol entre les joueurs qui ont décidé de rentrer
-    au camp ce tour (actif == False).
+    au camp ce tour.
     Renvoie le reste qui reste sur le chemin.
     """
-    joueurs_sortants = [j for j in joueurs if j["actif"] == False]
     if not joueurs_sortants:
         return montant
  
@@ -53,4 +52,4 @@ def rentree_au_camp(joueurs):
         if j["actif"] == False:
             j["coffre"] += j["sac"]
             j["sac"]    = 0
-            j["actif"] = "sorti"
+            #j["actif"] = "sorti"
