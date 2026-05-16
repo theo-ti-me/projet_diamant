@@ -30,7 +30,7 @@ def jouer_partie(joueurs):
 
         print(f"\nFin de la manche {id_manche}, voici l'état de vos coffres.")
         for j in joueurs:
-            print(f"\n{j['nom']} : {j['coffre']}")
+            print(f"\n{j['nom']} : {sum(j['coffre'])}")
         id_manche += 1
 
 
