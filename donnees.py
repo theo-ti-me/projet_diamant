@@ -2,7 +2,7 @@ def creer_joueur(nom):
     """
     permet de créer un dico pour chaque joueur
     """
-    return {"nom": nom, "coffre": 0, "sac": 0, "reliques": [], "actif": True}
+    return {"nom": nom, "coffre": [0,0,0,0,0], "sac": 0, "is_active": True}
 
 def generer_deck(exclusions):
     """
@@ -10,8 +10,8 @@ def generer_deck(exclusions):
     les cartes qui ont fait perdre lors des manches précédentes.
     "Exclusions" est un dictionnaire qui contient le nombre de fois que la carte doit être enlevée
     """
-    deck = [1,2,3,4,5,5,7,7,9,11,11,13,14,15,17]
-    dangers = ["scorpions","serpents","lave","pierre","piques"]
+    deck = ["1","2","3","4","5","5","7","7","9","11","11","13","14","15","17"]
+    dangers = ["araignées","serpents","lave","boulets","pics"]
     for d in dangers:
         nb_exemplaires = 3 - exclusions[d]
         for i in range(nb_exemplaires):
@@ -19,4 +19,4 @@ def generer_deck(exclusions):
     return deck
 
 def creer_pile_reliques():
-    return[5, 7, 8, 10, 12]
+    return["R_5","R_7","R_8","R_10","R_12"]

@@ -1,4 +1,4 @@
-from donnees import creer_joueur
+from donnees import creer_joueur, creer_pile_reliques
 from manche import jouer_manche
 
 def init_joueurs():
@@ -17,21 +17,24 @@ def init_joueurs():
     return joueurs
 
 def jouer_partie(joueurs):
-    #dictionnaire des danger exclue
-    exclusions = {"scorpions": 0, "serpents": 0, "lave": 0, "pierre":0, "piques": 0}
+    # dictionnaire des danger exclue
+    exclusions = {"araignées": 0,"serpents": 0,"lave": 0,"boulets": 0,"pics": 0}
+
+    pile_reliques = creer_pile_reliques()
 
     id_manche = 1
 
     while id_manche < 6:
-        exclusions = jouer_manche(joueurs, exclusions, id_manche)
+        exclusions = jouer_manche(joueurs, exclusions, id_manche, pile_reliques)
 
 
         print(f"\nFin de la manche {id_manche}, voici l'état de vos coffres.")
         for j in joueurs:
             print(f"\n{j['nom']} : {j['coffre']}")
         id_manche += 1
-    
-    classement = sorted(joueurs, key=lambda j: j["coffre"], reverse=True)
+
+
+    classement = sorted(joueurs, key=lambda j: sum(j["coffre"]), reverse=True)
 
     print("\nFin de la dernière manche. Voici le classement")
     ordre = 1
