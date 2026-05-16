@@ -1,18 +1,29 @@
-from donnees import creer_joueur, creer_pile_reliques
+from donnees import creer_joueur, creer_pile_reliques, creer_joueur_ia
 from manche import jouer_manche
+from ia import ktourStrategy
 
 def init_joueurs():
     """
     Initialise la liste des joueurs
     """
-    nb_joueur = int(input("Entrez le nombre de joueur (minimum 3 et maximum 8) : ").strip())
-    while nb_joueur < 3 or nb_joueur > 8:
-        print("\nNombre de joueur incorecte il faut être minimum 3 et maximum 8.")
-        nb_joueur = int(input("Redonner un nombre de joueur corecte : "))
     joueurs = []
-    for i in range(nb_joueur):
-        nom = input(f"\nEntrez le nom du joueur {i+1} : ")
+
+    nb_humains = int(input("Entrez le nombre de joueur humains (minimum 1 et maximum 8) : ").strip())
+    for i in range(nb_humains):
+        nom = input(f"\nNom du joueur {i+1} : ")
         j = creer_joueur(nom)
+        joueurs.append(j)
+
+    nb_ia = int(input("Entrez le nombre de joueur IA à ajouter :"))
+    nb_total = nb_humains + nb_ia
+    while nb_total < 3 or nb_total > 8:
+        print("\nNombre de joueur incorecte il faut être minimum 3 et maximum 8.")
+        nb_ia = int(input("Redonner un nombre d'ia correcte : "))
+        nb_total = nb_humains + nb_ia
+    for i in range(nb_ia):
+        nom = f"IA_{i + 1}"
+        ia = ktourStrategy()
+        j = creer_joueur_ia(nom, ia)
         joueurs.append(j)
     return joueurs
 

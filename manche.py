@@ -24,17 +24,28 @@ def jouer_manche(joueurs, exclusions, numero_manche, pile_reliques):
     reliques_sol = [] # liste des relique au sol
 
     # 3. boucle principale
-    for c in cartes:
+    index = 0
+    while index < len(cartes):
+        c = cartes[index]
+        tas_tri = cartes[index + 1:]
+        index += 1
+
         joueurs_sortants = [] # liste des joueurs qui sorte a ce tour de la manche
 
         # décision des joueur actifs
         print(f"\nActuellement le totale des trésors au sol est de {tresor_sol}")
         for j in joueurs:
-            if j["is_active"] == True:
-                choix = input(f"{j['nom']} (sac = {j['sac']}) : continuer ou rentrer ? ").strip().lower()
-                if choix == "rentrer":
-                    joueurs_sortants.append(j)
-                    j["is_active"] = False
+            if j["is_active"]:
+                if j["est_humain"]:
+                    choix = input(f"{j['nom']} (sac = {j['sac']}) : continuer ou rentrer ? ").strip().lower()
+                    if choix == "rentrer":
+                        joueurs_sortants.append(j)
+                        j["is_active"] = False
+                else:
+                    continuer = j["ia"].play(j["coffre"], j["sac"],tresor_sol, numero_manche, joueurs, tas_tri, cartes_manche)
+                    if not continuer:
+                        joueurs_sortants.append(j)
+                        j["is_active"] = False
     
         # partage du trésor au sol pour ce qui rentre a ce tour
         tresor_sol = tresor_retour(tresor_sol, joueurs_sortants)

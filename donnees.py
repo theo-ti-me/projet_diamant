@@ -2,7 +2,13 @@ def creer_joueur(nom):
     """
     permet de créer un dico pour chaque joueur
     """
-    return {"nom": nom, "coffre": [0,0,0,0,0], "sac": 0, "is_active": True}
+    return {"nom": nom, "coffre": [0,0,0,0,0], "sac": 0, "is_active": True, "est_humain": True}
+
+def creer_joueur_ia(nom, ia):
+    """
+    créer un dico pour les ia
+    """
+    return {"nom": nom, "coffre": [0,0,0,0,0], "sac": 0, "is_active": True, "est_humain": False, "ia": ia}
 
 def generer_deck(exclusions):
     """
