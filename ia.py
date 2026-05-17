@@ -18,4 +18,27 @@ class ktourStrategy:
              tas_tri, # le tas de cartes restantes (pas dans l'ordre de tirage)
              defausse # ce qui est déjà joué comme cartes
             ):
-        return len(defausse) > 4
+        
+        dangers_dangereux = 0
+        for p in pieges:
+            if p in defausse and p in tas_tri:
+                dangers_dangereux += 1
+
+        if id_manche <= 2:
+            seuil = 3
+        elif id_manche <= 4:
+            seuil = 2
+        else:
+            seuil = 1
+
+        moyenne_coffre = sum(sum(j["coffre"]) for j in les_joueurs) / len(les_joueurs)
+        mon_total = sum(mon_coffre) + mon_sac
+        
+        if mon_total < moyenne_coffre:
+            seuil += 1
+        elif mon_total > moyenne_coffre:
+            seuil -= 1
+
+        seuil = max(1, seuil)
+
+        return dangers_dangereux < seuil
